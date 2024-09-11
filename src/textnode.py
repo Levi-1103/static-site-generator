@@ -1,6 +1,7 @@
 from htmlnode import LeafNode
 
 
+
 text_type_text = "text"
 text_type_bold = "bold"
 text_type_italic = "italic"
