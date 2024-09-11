@@ -1,4 +1,4 @@
-from inlinenode import split_nodes_delimiter, validate_markdown
+from inline_markdown import split_nodes_delimiter, validate_markdown
 from textnode import TextNode
 from htmlnode import HTMLNode
 

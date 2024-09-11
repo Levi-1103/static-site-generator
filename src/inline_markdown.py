@@ -13,7 +13,7 @@ delimiter_code = "`"
 delimiter_bold = "**"
 delimiter_italic = "*"
 
-
+#ADD UNIT TESTS
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
 
@@ -38,6 +38,9 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
                     isCode = False
 
     return nodes
+
+
+#ADD UNIT TESTS
 
 
 def validate_markdown(text, delimiter):
