@@ -13,8 +13,8 @@ class HTMLNode:
         if self.props is None:
             return html_props
 
-        for attribute in self.props:
-            html_props += f' {attribute}="{self.props[attribute]}"'
+        for prop in self.props:
+            html_props += f' {prop}="{self.props[prop]}"'
 
         return html_props
 
