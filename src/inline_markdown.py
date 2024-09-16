@@ -4,41 +4,27 @@ import re
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
 
-    delimiter_code = "`"
-    delimiter_bold = "**"
-    delimiter_italic = "*"
-
-
-
     new_nodes = []
 
     for node in old_nodes:
         if node.text_type != text_type_text:
             new_nodes.append(node)
+            continue
 
         if validate_markdown(node.text, delimiter):
+            split_nodes = []
             split_text = node.text.split(delimiter)
-            node_type = ""
-            if delimiter == delimiter_code:
-                node_type = text_type_code
-            if delimiter == delimiter_bold:
-                node_type = text_type_bold
-            if delimiter == delimiter_italic:
-                node_type = text_type_italic
-            
-            isDelimiter = False
 
-            for value in split_text:
-                print(value)
-                if value == "":
+            for i in range(len(split_text)):
+                if split_text[i] == "":
                     continue
-                if isDelimiter == False:
-                    new_nodes.append(TextNode(value, text_type_text))
-                    isDelimiter = True
+                if i % 2 == 0:
+                    split_nodes.append(TextNode(split_text[i], text_type_text))
                 else:
-                    new_nodes.append(TextNode(value, node_type))
-                    isDelimiter = False
-
+                    split_nodes.append(TextNode(split_text[i], text_type))
+            new_nodes.extend(split_nodes)
+                    
+                
     return new_nodes
 
 
@@ -133,3 +119,14 @@ def split_nodes_image(old_nodes):
                 new_nodes.append(TextNode(original_text, text_type_text))
             
         return new_nodes
+    
+def text_to_textnodes(text):
+    nodes = [TextNode(text, text_type_text)]
+    nodes = split_nodes_delimiter(nodes, "**", text_type_bold)
+    nodes = split_nodes_delimiter(nodes, "*", text_type_italic)
+    nodes = split_nodes_delimiter(nodes, "`", text_type_code)
+    nodes = split_nodes_image(nodes)
+    nodes = split_nodes_link(nodes)
+
+    print(nodes)
+    return nodes
