@@ -1,3 +1,5 @@
+from htmlnode import LeafNode
+
 block_type_paragraph = "paragraph"
 block_type_heading = "heading"
 block_type_code = "code"
@@ -55,3 +57,18 @@ def block_to_block_type(block):
             i += 1
         return block_type_ordered_list
     return block_type_paragraph
+
+
+def markdown_to_html_node(markdown):
+    blocks = markdown_to_blocks(markdown)
+
+    nodes = []
+
+    for block in blocks:
+        block_type = block_to_block_type(block)
+
+        print(block)
+        print(block_type)
+
+        node = LeafNode()
+

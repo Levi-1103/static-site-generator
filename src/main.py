@@ -1,4 +1,4 @@
-from block_markdown import markdown_to_blocks
+from block_markdown import markdown_to_blocks, markdown_to_html_node
 from inline_markdown import (
     extract_markdown_images,
     split_nodes_delimiter,
@@ -27,7 +27,7 @@ This is a paragraph of text. It has some **bold** and *italic* words inside of i
 * This is the first list item in a list block
 * This is a list item
 * This is another list item"""
-    print(markdown_to_blocks(markdown))
+    print(markdown_to_html_node(markdown))
 
 
 if __name__ == "__main__":
