@@ -1,4 +1,4 @@
-from block_markdown import markdown_to_blocks, markdown_to_html_node
+from markdown_blocks import markdown_to_blocks, markdown_to_html_node
 from inline_markdown import (
     extract_markdown_images,
     split_nodes_delimiter,

@@ -9,13 +9,11 @@ class HTMLNode:
         raise NotImplementedError("to_html method not implemented")
 
     def props_to_html(self):
-        html_props = ""
         if self.props is None:
-            return html_props
-
+            return ""
+        html_props = ""
         for prop in self.props:
             html_props += f' {prop}="{self.props[prop]}"'
-
         return html_props
 
     def __repr__(self):
@@ -31,10 +29,8 @@ class LeafNode(HTMLNode):
             raise ValueError("Invalid HTML: no value")
         if self.tag is None:
             return self.value
-        if self.props is None:
-            return f"<{self.tag}>{self.value}</{self.tag}>"
-        else:
-            return f"<{self.tag}{self.props.props_to_html()}>{self.value}</{self.tag}>"
+
+        return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
 
     def __repr__(self):
         return f"LeafNode({self.tag}, {self.value}, {self.props})"
@@ -47,24 +43,17 @@ class ParentNode(HTMLNode):
     def to_html(self):
         if self.tag is None:
             raise ValueError("Invalid HTML missing tag")
-        if not self.children:
+        if self.children is None:
             raise ValueError("Missing children")
 
-        # open tags
-        props_str = ""
-        if self.props is None:
-            props_str = ""
-        else:
-            props_str = self.props.props_to_html()
-
-        tags = f"<{self.tag}{props_str}>"
+        children_html = ""
 
         for child in self.children:
-            tags += child.to_html()
-        # close tags
-        tags += f"</{self.tag}>"
+            children_html += child.to_html()
 
-        return tags
+        return f"<{self.tag}{self.props_to_html()}>{children_html}</{self.tag}>"
+
+    
 
     def __repr__(self):
-        return f"ParentNode({self.tag}, {self.props}, {self.children})"
+        return f"ParentNode({self.tag}, children: {self.children}, {self.props})"
